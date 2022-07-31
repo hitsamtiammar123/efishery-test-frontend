@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "commonJS",
+    "target": "es6",
+    "jsx": "react",
+    "paths": {
+      "Assets/*": ["./src/assets/*"],
+      "Assets": ["./src/assets/index.js"],
+      "ComponentMain/*": ["./src/components/main/*"],
+      "ComponentMain": ["./src/components/main/index.js"]
+    }
+  }
+}

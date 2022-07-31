@@ -1,0 +1,1 @@
+export { default as EfisheryLogo } from './efishery.png';

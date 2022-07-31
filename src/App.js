@@ -1,24 +1,15 @@
-import logo from './logo.svg';
+import { ThemeProvider } from '@mui/material/styles';
+import { Header } from 'ComponentMain';
+import { mainTheme } from './theme';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={mainTheme}>
+      <div className="App">
+        <Header />
+      </div>
+    </ThemeProvider>
   );
 }
 
