@@ -1,25 +1,14 @@
 import React, { useState } from 'react';
 import { EfisheryLogo } from 'Assets';
-import { Grid, Tabs, Tab } from '@mui/material';
+import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { Tab as EfisheryTab, Tabs as EFisheryTabs } from 'ComponentNavigation';
 import './styles.scss';
 
 export const GridHeader = styled(Grid)(({ theme }) => ({
   width: '100%',
   backgroundColor: theme.palette.efishery.light,
   padding: '10px'
-}));
-
-export const EFisheryTabs = styled(Tabs)(() => ({
-  '& .MuiTabs-indicator': {
-    backgroundColor: 'green'
-  }
-}));
-
-const EfisheryTab = styled(Tab)(() => ({
-  '&.Mui-selected': {
-    color: 'green'
-  }
 }));
 
 export default function Header(){

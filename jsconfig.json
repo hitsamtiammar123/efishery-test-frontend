@@ -8,7 +8,9 @@
       "Assets/*": ["./src/assets/*"],
       "Assets": ["./src/assets/index.js"],
       "ComponentMain/*": ["./src/components/main/*"],
-      "ComponentMain": ["./src/components/main/index.js"]
+      "ComponentMain": ["./src/components/main/index.js"],
+      "ComponentNavigation/*":["./src/components/navigation/*"],
+      "ComponentNavigation":["./src/components/navigation/index.js"]
     }
   }
 }
