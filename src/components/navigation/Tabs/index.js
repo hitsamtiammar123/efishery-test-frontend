@@ -3,6 +3,6 @@ import { Tabs } from '@mui/material';
 
 export default styled(Tabs)(() => ({
   '& .MuiTabs-indicator': {
-    backgroundColor: 'green'
+    backgroundColor: 'white'
   }
 }));

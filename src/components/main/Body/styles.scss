@@ -1,7 +1,55 @@
 .main-body{
-  margin-top: 30px;
+  margin-top: calc(50px + 40px);
+  z-index: 1;
 
-  .btn-input{
-    width: 100px;
+  .product-list{
+    margin-bottom: 30px;
+
+    .product-item{
+      display: flex;
+      flex-direction: row;
+      height: 202px;
+      border: 1px solid lightgrey;
+      margin-top: 20px;
+  
+      .img{
+        width: 400px;
+        object-fit: cover;
+      }
+  
+      .text-container{
+        margin-left: 20px;
+        margin-bottom: 10px;
+        margin-right: 20px;
+      }
+
+    }
+  }
+
+  .search-container{
+    display: flex;
+    width: 100%;
+    background-color: white;
+    transition: transform 0.5s;
+
+    &.translate-y{
+      transform: translateY(-20px);
+    }
+    
+
+    .btn-input{
+      width: 100px;
+      height: inherit;
+    }
+  }
+
+  .fixed-container{
+    position: fixed;
+    left: 0;
+    right: 0;
+  }
+
+  .box-search-container{
+    margin-top: 65px;
   }
 }

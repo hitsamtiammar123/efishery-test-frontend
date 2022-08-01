@@ -4,7 +4,7 @@ export const mainTheme = createTheme({
   palette: {
     efishery: {
       main: 'rgba(77, 199, 160, 1)',
-      light: 'rgba(77, 199, 160, 0.5)'
+      light: 'rgba(77, 199, 160, 0.8)'
     }
   }
 })
