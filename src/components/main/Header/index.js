@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { EfisheryLogoWhite } from 'Assets';
 import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
+import { EfisheryLogoWhite } from 'Assets';
 import { Tab as EfisheryTab, Tabs as EFisheryTabs } from 'ComponentNavigation';
 import './styles.scss';
 
@@ -21,10 +22,12 @@ export default function Header(){
 
   return (
     <GridHeader container direction="row" justifyContent="space-between" className="header">
-      <img className="logo" src={EfisheryLogoWhite} alt="Efishery Logo" />
+      <Link to="/">
+        <img className="logo" src={EfisheryLogoWhite} alt="Efishery Logo" />
+      </Link>
       <EFisheryTabs value={currHeader} onChange={onTabChange} aria-label="nav tabs example">
-        <EfisheryTab label="View List" href="#" component="a" />
-        <EfisheryTab label="Create New List" href="#" component="a" />
+        <EfisheryTab label="View List" to="/" component={Link} />
+        <EfisheryTab label="Create New List" to="/detail"  component={Link} />
       </EFisheryTabs>
     </GridHeader>
   )

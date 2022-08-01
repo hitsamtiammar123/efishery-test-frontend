@@ -10,7 +10,9 @@
       "ComponentMain/*": ["./src/components/main/*"],
       "ComponentMain": ["./src/components/main/index.js"],
       "ComponentNavigation/*":["./src/components/navigation/*"],
-      "ComponentNavigation":["./src/components/navigation/index.js"]
+      "ComponentNavigation":["./src/components/navigation/index.js"],
+      "Pages":["./src/pages/index.js"],
+      "Pages/*":["./src/pages/*"]
     }
   }
 }
