@@ -5,6 +5,7 @@
     "target": "es6",
     "jsx": "react",
     "paths": {
+      "@*":["./src/*"],
       "Assets/*": ["./src/assets/*"],
       "Assets": ["./src/assets/index.js"],
       "ComponentMain/*": ["./src/components/main/*"],
@@ -12,7 +13,9 @@
       "ComponentNavigation/*":["./src/components/navigation/*"],
       "ComponentNavigation":["./src/components/navigation/index.js"],
       "Pages":["./src/pages/index.js"],
-      "Pages/*":["./src/pages/*"]
+      "Pages/*":["./src/pages/*"],
+      "Hooks": ["./src/hooks.js"],
+      "Constant":["./src/constants"]
     }
   }
 }

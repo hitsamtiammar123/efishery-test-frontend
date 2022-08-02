@@ -26,8 +26,8 @@ export default function Header(){
         <img className="logo" src={EfisheryLogoWhite} alt="Efishery Logo" />
       </Link>
       <EFisheryTabs value={currHeader} onChange={onTabChange} aria-label="nav tabs example">
-        <EfisheryTab label="View List" to="/" component={Link} />
-        <EfisheryTab label="Create New List" to="/create"  component={Link} />
+        <EfisheryTab label="Daftar Komoditas" to="/" component={Link} />
+        <EfisheryTab label="Tambah Data" to="/create"  component={Link} />
       </EFisheryTabs>
     </GridHeader>
   )

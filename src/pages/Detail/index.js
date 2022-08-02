@@ -26,7 +26,7 @@ export default function Detail(){
               }} type="number" />
             </Grid>
           </Grid>
-          <Grid container xs={12}>
+          <Grid container>
            <FormControl margin="normal" fullWidth>
               <InputLabel id="select-location-label">Lokasi</InputLabel>
               <Select label="Lokasi" labelId="select-location-label" id="select-location">
@@ -36,7 +36,7 @@ export default function Detail(){
               </Select>
            </FormControl>
           </Grid>
-          <Grid container direction="row">
+          <Grid className="mt-1" container direction="row">
             <Button variant="contained" color="primary">Tambah Data baru</Button>
           </Grid>
         </Grid>
