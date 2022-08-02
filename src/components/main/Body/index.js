@@ -3,7 +3,7 @@ import {
   Routes,
   Route
 } from 'react-router-dom';
-import { Index } from 'Pages';
+import { Index, Detail } from 'Pages';
 import './styles.scss';
 
 
@@ -12,7 +12,9 @@ export default function Body(){
     <div className="main-body">
         <Routes>
           <Route element={<Index />} exact path="/" />
-          <Route element={<div>Hello this is detail</div>} path="/detail" />        </Routes>
+          <Route element={<Detail />} path="/create" />
+          <Route element={<Detail />} path="/detail/:id" />
+        </Routes>
     </div>
   )
 }

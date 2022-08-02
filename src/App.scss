@@ -27,10 +27,21 @@ body{
   font-size: 10px;
 }
 
-.mt-1{
-  margin-top: 1rem;
-}
+@for $i from 1 through 5{
+  .mt-#{$i}{
+    margin-top: #{$i}rem;
+  }
 
-.mt-2{
-  margin-top: 2rem;
+  .mb-#{$i}{
+    margin-bottom: #{$i}rem;
+  }
+
+  .ml-#{$i}{
+    margin-left: #{$i}rem;
+  }
+
+  .mr-#{$i}{
+    margin-right: #{$i}rem;
+  }
+  
 }
