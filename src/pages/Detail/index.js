@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { Container, Grid, TextField, FormHelperText, FormControl, Select, InputLabel, MenuItem, Button } from '@mui/material';
 import { IkanDefault, Loading } from 'Assets';
 import { useAxios, usePrevious } from 'Hooks';
+import { FISH_IMAGE_MAP } from 'Constant';
 import './styles.scss';
 
 export default function Detail(){
@@ -218,6 +219,14 @@ export default function Detail(){
     })
   }
 
+  function getImageMap(name){
+    const fishMap = FISH_IMAGE_MAP[name.toUpperCase()];
+    if(fishMap){
+      return fishMap
+    }
+    return IkanDefault
+  }
+
   function renderContent(){
     if(apiStein.loading || apiSteinPost.loading || apiSteinPut.loading || apiSteinDelete.loading){
       return (
@@ -229,7 +238,7 @@ export default function Detail(){
     return (
       <Grid spacing={4} container direction="row">
         <Grid item className="image-container">
-          <img className="fish-img" alt="Fish" src={IkanDefault} />
+          <img className="fish-img" alt="Fish" src={getImageMap(data.komoditas)} />
         </Grid>
         <Grid item className="flex-1 ml-2">
           <Grid container>
