@@ -75,6 +75,11 @@ export const useAxios = (url, method = 'get', timeout = 1000) => {
           headers: _headers,
         });
         break;
+      case 'delete':
+          a = api.delete(_url, { data }, {
+            headers: _headers,
+          });
+          break;
       case 'putformdata':
         a = withFormData(_headers, data, 'put', _url);
         break;

@@ -4,6 +4,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
 import { grey } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
+import numbro from 'numbro';
+import moment from 'moment';
 import { IkanDefault, Loading } from 'Assets';
 import { useAxios, usePrevious } from 'Hooks';
 import { SUCCESSFULL } from 'Constant';
@@ -56,7 +58,6 @@ export default function Index(){
   }, [prevStatus, apiStein.status]);
 
   function onLoadDataSuccess(){
-    console.log({ r: apiStein.response, d: apiStein.data })
     let newData = apiStein.data;
     isBottomRef.current = false;
     if(isAppendRef.current === true){
@@ -131,7 +132,7 @@ export default function Index(){
   function renderListProducts(){
     return (
       <Grid  container className="product-list" direction="column">
-        {context.data.map((item, index) => (
+        {context.data.filter(item => item.uuid !== null).map((item, index) => (
           <Box to={`/detail/${item.uuid}`} component={Link} key={item.timestamp + '' + index} className="product-item">
             <img src={IkanDefault} alt="Ikan default" className="img" />
             <Grid className="text-container" container justifyContent="space-between" direction="column">
@@ -143,7 +144,7 @@ export default function Index(){
                 <Grid container direction="row">
                   <div className="flex-1">
                     <div className="text-gray">Ukuran: {item.size}</div>
-                    <div className="text-gray mt-1">Harga: Rp. {item.price}</div>
+                    <div className="text-gray mt-1">Harga: Rp. {numbro(item.price).format({thousandSeparated: true})}</div>
                   </div>
                   <div className="flex-1">
                     <div className="text-gray">Provinsi: {item.area_provinsi}</div>
@@ -154,7 +155,7 @@ export default function Index(){
               <Grid className="w-full" container direction="row" justifyContent="space-between">
                 <span className="text-10 text-info">Timestamp: {item.timestamp}</span>
                 <span className="text-10 text-info">UUID: {item.uuid}</span>
-                <span className="text-10 text-info">Dibuat tanggal: {item.tgl_parsed}</span>
+                <span className="text-10 text-info">Dibuat tanggal: {moment(item.tgl_parsed).format('DD MMMM YYYY HH:mm:ss')}</span>
               </Grid>
             </Grid>
           </Box>
@@ -194,7 +195,6 @@ export default function Index(){
       </Grid>
       <div className="box-search-container">
         {renderListProducts()}
-        {/* {context.isInitiate && apiStein.loading === false ? renderPlaceholderText() : renderListProducts()} */}
       </div>
     </Container>
   )
