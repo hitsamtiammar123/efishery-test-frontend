@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { Grid, TextField, Container, Button, Box, Radio, RadioGroup, FormControl, FormControlLabel, FormLabel } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
 import { grey } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
@@ -8,6 +9,7 @@ import numbro from 'numbro';
 import moment from 'moment';
 import { IkanDefault, Loading } from 'Assets';
 import { useAxios, usePrevious } from 'Hooks';
+import { withAnimated } from 'Hoc';
 import { SUCCESSFULL, FISH_IMAGE_MAP } from 'Constant';
 import './styles.scss';
 
@@ -59,7 +61,7 @@ const SORT_MAPS = {
 
 }
 
-export default function Index(){
+function Index(){
   const [textValue, setTextValue] = useState('');
   const [listData, setListData] = useState([]);
   const [isSearchSticky, setSearchSticky] = useState(false);
@@ -67,17 +69,23 @@ export default function Index(){
   const [offset, setOffset] = useState(0);
   const [sortDirection, setSortDirection] = useState('');
   const [sortBy, setSortBy] = useState('');
+  const offsetRef = useRef(0);
   const textContainerRef = useRef();
   const inputRef = useRef();
   const isBottomRef = useRef(false);
   const isAppendRef = useRef(false);
+  const doneBottomRef = useRef(false);
   const apiStein = useAxios('/list');
   const prevStatus = usePrevious(apiStein.status);
+  const defaultList = useSelector((state) => state.defaultList)
+  const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
+  const prevSearchParam = usePrevious(searchParams);
   
   useEffect(() => {
     window.addEventListener('scroll', onScroll);
-    fetchData({ search: '', offset: 0, limit: LIMIT })
+    doneBottomRef.current = false;
+    initDefaultData();
     return () => {
       window.removeEventListener('scroll', onScroll)
     }
@@ -95,12 +103,18 @@ export default function Index(){
   }, [prevStatus, apiStein.status]);
 
   useEffect(() => {
-    console.log({ searchParams })
-    if(searchParams.get('search')){
-      fetchData({ search: searchParams.get('search'), limit: LIMIT, offset: 0 });
-      setOffset(0);
+    const searchD  = searchParams.get('search');
+    if(prevSearchParam !== undefined && prevSearchParam !== searchParams){
+      if(searchD){
+        doneBottomRef.current = false;
+        fetchData({ search: searchParams.get('search'), limit: LIMIT, offset: 0 });
+        setOffset(0);
+        offsetRef.current = 0;
+      }else if(!searchD){
+        initDefaultData()
+      }
     }
-  }, [searchParams])
+  }, [prevSearchParam, searchParams])
 
   const filteredData = useMemo(() => {
     const temp = [...listData];
@@ -119,39 +133,57 @@ export default function Index(){
     return temp;
   }, [listData, sortDirection, sortBy]);
 
+  function initDefaultData(){
+    const searchD  = searchParams.get('search');
+    if(searchD){
+      return;
+    }
+    if(defaultList.data){
+      fetchFromRedux();
+    }else{
+      fetchData({ search: '', offset: 0, limit: LIMIT })
+    }
+  }
+
+  function fetchFromRedux(){
+    const currOffset = defaultList.offset;
+    const currData = defaultList.data;
+    setListData(currData);
+    setOffset(currOffset);
+    offsetRef.current = currOffset;
+  }
+
   function onSortDirection(e){
     setSortDirection(e.target.value)
-    //const newData = doSort(listData, e.target.value, sortBy);
-    //setListData(newData)
   }
 
   function onSortBy(e){
     setSortBy(e.target.value)
-    //const newData = doSort(listData, sortDirection, e.target.value);
-    //setListData(newData)
-  }
-
-  function doSort(data, sortDirection, sortBy){
-    const temp = [...data];
-
-    temp.sort((a, b) => {
-      if(sortDirection === 'Desc'){
-        return Number(a.price) - Number(b.price)
-      }else if(sortDirection === 'Asc'){
-        return Number(a.price) + Number(b.price)
-      }
-    })
-
-    return temp;
   }
 
   function onLoadDataSuccess(){
     let newData = apiStein.data;
     isBottomRef.current = false;
+
+    if(apiStein.data.length === 0){
+      doneBottomRef.current = true;
+      return;
+    }
+
     if(isAppendRef.current === true){
       newData = [...listData, ...apiStein.data,]
     }
+    if(!searchParams.get('search')){
+      dispatch({
+        type: 'ADD_DEFAULT',
+        payload: {
+          data: newData,
+          offset: offsetRef.current
+        }
+      })
+    }
     setListData(newData);
+    setOffset(offset + 10)
     if(apiStein.data.length === 0){
       setEmpty(true);
     }else{
@@ -172,13 +204,15 @@ export default function Index(){
 
     if(posScrollY >= bodyScrollHeight && isBottomRef.current !== true ){
       isBottomRef.current = true;
-      const newOffset = offset + 10;
+      const newOffset = offsetRef.current + 10;
+      offsetRef.current = newOffset;
       fetchData({ search: inputRef.current.value, offset: newOffset, limit: LIMIT, append: true });
     }
   }
 
   function fetchData({ search, limit, offset, append }){
-    if(apiStein.loading)
+    console.log({ d: doneBottomRef.current})
+    if(apiStein.loading || doneBottomRef.current)
       return;
     const params = {
       limit, 
@@ -204,15 +238,15 @@ export default function Index(){
   function onKeyUpTextInput(e){
     if(e.code === 'Enter'){
       setSearchParams({ search: textValue })
-      // fetchData({ search: textValue, limit: LIMIT, offset: 0 });
-      // setOffset(0);
+      doneBottomRef.current = false;
+      offsetRef.current = 0;
     }
   }
 
   function onBtnSearchClicked(){
+    doneBottomRef.current = false;
+    offsetRef.current = 0;
     setSearchParams({ search: textValue })
-    // fetchData({ search: textValue, limit: LIMIT, offset: 0 });
-    // setOffset(0);
   }
 
   function getImageMap(name){
@@ -327,3 +361,5 @@ export default function Index(){
     </Container>
   )
 }
+
+export default withAnimated(Index);

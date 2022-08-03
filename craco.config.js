@@ -8,7 +8,9 @@ module.exports = {
       ComponentNavigation: path.resolve(__dirname, 'src/components/navigation'),
       Pages: path.resolve(__dirname, 'src/pages'),
       Hooks: path.resolve(__dirname, 'src/hooks.js'),
-      Constant: path.resolve(__dirname, 'src/constants.js')
+      Constant: path.resolve(__dirname, 'src/constants.js'),
+      Container: path.resolve(__dirname, 'src/components/container'),
+      Hoc: path.resolve(__dirname, 'src/hoc.js')
     }
   }
 }

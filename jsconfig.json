@@ -12,10 +12,13 @@
       "ComponentMain": ["./src/components/main/index.js"],
       "ComponentNavigation/*":["./src/components/navigation/*"],
       "ComponentNavigation":["./src/components/navigation/index.js"],
+      "Container/*":["./src/components/container/*"],
+      "Container":["./src/components/container/index.js"],
       "Pages":["./src/pages/index.js"],
       "Pages/*":["./src/pages/*"],
       "Hooks": ["./src/hooks.js"],
-      "Constant":["./src/constants"]
+      "Hoc":["./src/hoc.js"],
+      "Constant":["./src/constants.js"]
     }
   }
 }

@@ -6,9 +6,10 @@ import { Container, Grid, TextField, FormHelperText, FormControl, Select, InputL
 import { IkanDefault, Loading } from 'Assets';
 import { useAxios, usePrevious } from 'Hooks';
 import { FISH_IMAGE_MAP } from 'Constant';
+import { withAnimated } from 'Hoc';
 import './styles.scss';
 
-export default function Detail(){
+function Detail(){
   const { id } = useParams();
   const navigation = useNavigate();
   const [data, setData] = useState({
@@ -294,3 +295,5 @@ export default function Detail(){
     </Container>
   )
 }
+
+export default withAnimated(Detail);
