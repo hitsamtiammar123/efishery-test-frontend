@@ -67,7 +67,7 @@ function Index(){
   const [isSearchSticky, setSearchSticky] = useState(false);
   const [isEmpty, setEmpty] = useState(false);
   const [offset, setOffset] = useState(0);
-  const [sortDirection, setSortDirection] = useState('');
+  const [sortDirection, setSortDirection] = useState('Desc');
   const [sortBy, setSortBy] = useState('');
   const offsetRef = useRef(0);
   const textContainerRef = useRef();
